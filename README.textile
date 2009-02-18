@@ -1,7 +1,7 @@
 h1. RoleAuthz - Simple role-based authorization
 
 
-h2. Defining roles:
+h2. Roles:
 
 <pre><code>
 class Application < Merb::Controller
@@ -46,7 +46,7 @@ class NotAResourceController < Application
 end
 </code></pre>
 
-Global
+Global:
 
 <pre><code>
 class Application < Merb::Controller
@@ -59,8 +59,9 @@ end
 
 h2. Operators (user classes)
 
-Operator classes must call authorizable! somewhere. For example:
+Operator classes must call authorizable! somewhere. 
 
+Example:
 <pre><code>
 class User
   include DataMapper::Resource
@@ -69,5 +70,15 @@ class User
   property :id, Serial
   property :login, String
 end
+</code></pre>
+
+Operators may use the authorized? method to check authorization.
+
+Examples:
+<pre><code>
+user = User.get(n)
+user.authorized?(:target => @post, :action => :edit)
+user.authorized?(:target => Posts, :action => :new)
+user.authorized?(:role => :admin)
 </code></pre>
 
