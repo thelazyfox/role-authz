@@ -1,7 +1,7 @@
 h1. RoleAuthz - Simple role-based authorization
 
 
-.h2 Defining roles:
+h2. Defining roles:
 
 <pre><code>
 class Application < Merb::Controller
