@@ -6,10 +6,10 @@ require 'merb-core/tasks/merb'
 
 GEM_NAME = "role-authz"
 GEM_VERSION = "0.0.1"
-AUTHOR = "Your Name"
-EMAIL = "Your Email"
-HOMEPAGE = "http://merbivore.com/"
-SUMMARY = "Merb plugin that provides ..."
+AUTHOR = "Jorge Villatoro"
+EMAIL = "programmerjorge@gmail.com"
+HOMEPAGE = ""
+SUMMARY = "Merb plugin that provides a very simple role-based authorization system"
 
 spec = Gem::Specification.new do |s|
   s.rubyforge_project = 'merb'
