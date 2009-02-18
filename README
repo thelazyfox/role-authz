@@ -1,4 +1,57 @@
 role-authz
 ==========
 
-A plugin for the Merb framework that provides ...
+Tries to be as simple as possible
+
+Defining roles:
+
+class Application < Merb::Controller
+  role :name do |operator, target|
+    # return true or false, depending on
+    # whether or not this operator/target 
+    # combination can have this role
+  end
+  # Examples:
+  role :admin do |operator, target|
+    operator.respond_to?(:admin) && operator.admin
+  end
+  role :owner do |operator, target|
+    target.respond_to?(:owner) && target.owner == operator
+  end
+end
+
+Permissions can be defined globally, for a specific resource, or for just that controller
+
+For resources
+class Posts < Application
+  authorize Post do
+    for_role(:admin).allow(:all)
+    for_role(:owner).allow(:all)
+    for_role(:guest).allow(:index, :show)
+  end
+end
+
+For a controller
+class NotAResourceController < Application
+  authorize self do
+    for_role(:guest).allow(:foo)
+  end
+  # foo is just an action
+end
+
+Global
+class Application < Merb::Controller
+  # your role definitions
+  authorize self do
+    for_role(:admin).allow(:all)
+  end
+end
+
+Operator classes must call authorizable! somewhere. For example:
+class User
+  include DataMapper::Resource
+  authorizable!
+  
+  property :id, Serial
+  property :login, String
+end
