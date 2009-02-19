@@ -17,6 +17,9 @@ class Application < Merb::Controller
   role :owner do |operator, target|
     target.respond_to?(:owner) && target.owner == operator
   end
+  role :guest do |operator, target|
+    operator.nil?
+  end
 end
 </code></pre>
 
