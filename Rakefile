@@ -13,7 +13,7 @@ require 'merb-core'
 require 'merb-core/tasks/merb'
 
 GEM_NAME = "role-authz"
-GEM_VERSION = "0.0.1"
+GEM_VERSION = "0.0.2"
 AUTHOR = "Jorge Villatoro"
 EMAIL = "jorge@tomatocannon.com"
 HOMEPAGE = "http://www.github.com/thelazyfox/role-authz"

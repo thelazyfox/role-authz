@@ -18,5 +18,6 @@ if defined?(Merb::Plugins)
     # code that can be required after the application loads
   end
   
-  Merb::Plugins.add_rakefiles "role-authz/merbtasks"
+  #commented out because there are no merb tasks at the moment
+  #Merb::Plugins.add_rakefiles "role-authz/merbtasks"
 end
