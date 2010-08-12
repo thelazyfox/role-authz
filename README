@@ -1,0 +1,77 @@
+RoleAuthz - Simple role-based authorization
+===========================================
+
+Roles
+------
+
+    class Application < Merb::Controller
+      role :name do |operator, target|
+        # return true or false, depending on
+        # whether or not this operator/target 
+        # combination can have this role
+      end
+      # Examples:
+      role :admin do |operator, target|
+        operator.respond_to?(:admin) && operator.admin
+      end
+      role :owner do |operator, target|
+        target.respond_to?(:owner) && target.owner == operator
+      end
+      role :guest do |operator, target|
+        operator.nil?
+      end
+    end
+
+Permissions
+-----------
+
+#### For resources:
+
+    class Posts < Application
+      authorize Post do
+        for_role(:admin).allow(:all)
+        for_role(:owner).allow(:all)
+        for_role(:guest).allow(:index, :show)
+      end
+    end
+
+#### For controllers:
+
+    class NotAResourceController < Application
+      authorize self do
+        for_role(:guest).allow(:foo)
+      end
+      # foo is just an action
+    end
+
+#### Global:
+
+    class Application < Merb::Controller
+      # your role definitions
+      authorize self do
+        for_role(:admin).allow(:all)
+      end
+    end
+
+Operators (user classes)
+------------------------
+
+Operator classes must call authorizable! somewhere. 
+
+#### Example:
+    class User
+      include DataMapper::Resource
+      authorizable!
+  
+      property :id, Serial
+      property :login, String
+    end
+
+Operators may use the authorized? method to check authorization.
+
+#### Examples:
+
+    user = User.get(n)
+    user.authorized?(:target => @post, :action => :edit)
+    user.authorized?(:target => Posts, :action => :new)
+    user.authorized?(:role => :admin)

@@ -1,5 +1,2 @@
 TODO:
-Fix LICENSE with your name
-Fix Rakefile with your name and contact info
-Add your code to lib/role-authz.rb
-Add your Merb rake tasks to lib/role-authz/merbtasks.rb
+- Make it moar better

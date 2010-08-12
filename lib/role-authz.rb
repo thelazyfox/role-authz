@@ -1,7 +1,10 @@
 # make sure we're running inside Merb
 if defined?(Merb::Plugins)
-
+  
   require 'merb-auth-core'
+  # Merb gives you a Merb::Plugins.config hash...feel free to put your stuff in your piece of it
+  Merb::Plugins.config[:role_authz] = {}
+  
   path = File.dirname(__FILE__)
   Dir[path / "role-authz" / "authorization" / "**/*.rb"].each do |f|
     require f
@@ -14,4 +17,6 @@ if defined?(Merb::Plugins)
   Merb::BootLoader.after_app_loads do
     # code that can be required after the application loads
   end
+  
+  Merb::Plugins.add_rakefiles "role-authz/merbtasks"
 end
