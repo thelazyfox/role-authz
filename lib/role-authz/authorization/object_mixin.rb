@@ -4,5 +4,9 @@ class Object
   def self.authorizable!
     include Authorization::OperatorMixin
   end
+  
+  def self.authorize!
+    include Authorization::ResourceMixin
+  end
 
 end

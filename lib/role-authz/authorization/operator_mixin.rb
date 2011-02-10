@@ -1,5 +1,4 @@
 module Authorization::OperatorMixin
-
   def authorized?(args = {})
     @roles ||= Authorization.roles_for(self, args[:target])
     if args[:action].nil?
@@ -15,4 +14,7 @@ module Authorization::OperatorMixin
     end
   end
   
+  def roles_for(target)
+    Authorization.roles_for(self, target)
+  end
 end

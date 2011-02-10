@@ -1,7 +1,11 @@
-require File.dirname(__FILE__) + '/spec_helper'
+require File.expand_path('../spec_helper', __FILE__)
 
-describe "role-authz" do
-  it "should do nothing" do
-    true.should == true
-  end
+describe "Object Mixin" do
+  it "includes OperatorMixin with #authorizable!"
+  it "includes ResourceMixin with #authorize!"
+end
+
+describe "Operator Mixin" do
+  it "responds to #authorized?"
+  it "responds to #roles_for"
 end

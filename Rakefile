@@ -78,5 +78,5 @@ begin
     end
   end
 rescue LoadError
-  # rspec not installed
+  puts "rspec not installed"
 end

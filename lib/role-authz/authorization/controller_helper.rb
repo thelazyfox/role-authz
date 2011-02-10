@@ -1,7 +1,4 @@
-module Authorization
-  class OpenForRoleStatement < Exception; end
-  class NoCurrentForRoleStatement < Exception; end
-  
+module Authorization  
   class ControllerHelper
     def initialize
       @working_roles = []
@@ -10,7 +7,7 @@ module Authorization
   
     def for_roles(*the_roles)
       raise OpenForRoleStatement unless @working_roles.empty?
-      @working_roles += the_roles
+      @working_roles = the_roles.clone
       self
     end
     alias_method :for_role, :for_roles
@@ -18,9 +15,7 @@ module Authorization
     def allow(*the_actions)
       raise NoCurrentForRoleStatement unless !@working_roles.empty?
       @working_roles.each do |current_role|
-        if !@permissions_list.include?(current_role)
-          @permissions_list[current_role] = []
-        end
+        @permissions_list[current_role] ||= []
         @permissions_list[current_role] += the_actions
       end
       @working_roles.clear

@@ -12,6 +12,10 @@ module Authorization
   end
   
   def self.add_role(name, &block)
-    @roles[name] = block
+    if block.parameters.count == 2
+      @roles[name] = block
+    else
+      raise InvalidRole
+    end
   end
 end

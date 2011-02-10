@@ -25,8 +25,7 @@ class Merb::Controller
   end
   
   def ensure_authorized
-    operator = nil
-    operator = session.user if session.authenticated?
+    operator = (session.user if session.authenticated?)
     roles = Authorization.roles_for(operator, authorization_target)
     roles.each do |role|
       actions = self.class._authorization.actions_for(role)
