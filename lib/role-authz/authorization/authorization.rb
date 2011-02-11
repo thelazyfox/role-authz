@@ -1,7 +1,7 @@
 module Authorization
   @roles = {}
   
-  def self.roles_for(operator, target)
+  def self.roles_for(operator, target=nil)
     list = []
     @roles.each do |name, proc|
       if proc.call(operator, target)

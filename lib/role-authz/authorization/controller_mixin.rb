@@ -8,6 +8,7 @@ class Merb::Controller
   end
   
   def self.authorize(klass, &block)
+    klass.class_inheritable_accessor :_authorization_proxy
     klass._authorization_proxy = self
     self._authorization_target = klass
     self._authorization ||= Authorization::ControllerHelper.new
